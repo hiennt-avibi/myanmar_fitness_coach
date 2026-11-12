@@ -127,6 +127,8 @@ const en = {
     activitySubs: { sedentary: 'Desk work, little walking', light: 'Walk or stand part of the day', active: 'Physical work, lots of moving' },
     minuteSubs: { '10': 'Tiny start', '20': 'Easy to keep', '30': 'Balanced', '45': 'Full session' },
     healthNo: 'No', healthYes: 'Yes', healthAdvice: 'Please check with a doctor before hard training. Your plan will stay gentle.',
+    questionOf: 'Question {n} of {total}', holdHint: 'Tap and hold − or + to change faster.', decrease: 'Decrease', increase: 'Increase',
+    makingSteps: ['Saving your answers', 'Saving your body details', 'Spacing your training days', 'Building your plan'], makingWait: 'This takes a few seconds', ready: 'Your first week is ready.', readyHint: 'Let’s look at today.', seePlan: 'See my plan',
     create: 'Create my plan', next: 'Next', making: 'Creating your plan…', makingHint: 'Choosing exercises that fit your goal and level.',
   },
   ux: {

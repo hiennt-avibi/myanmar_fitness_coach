@@ -46,6 +46,7 @@ const en = {
   volumeHint: 'Sum of reps × external weight; bodyweight is excluded.', language: 'Language', setCount: 'set',
   planReviewHint: 'The selected exercises repeat on each selected day. Start with a manageable routine.',
   pickDay: 'Choose at least one day and exercise.', goalPlaceholder: 'e.g. Build a steady training habit', planPlaceholder: 'e.g. My weekly routine',
+  welcome: { coachLabel: 'Your coach', coachLine: 'Mingalaba! Tell me a little about yourself and I will set up your first week of training.', title: 'Short workouts that fit your week.', body: 'A few questions, about 3 minutes. Then you get a week like this one.', exampleWeek: 'Example week', workout: '20 min', rest: 'Rest', startEmail: 'Start with email', haveAccount: 'Already training with us?', signInTitle: 'Welcome back', signInBody: 'Sign in to see today’s workout.', registerTitle: 'Create your account', registerBody: 'Your answers and workouts are saved to it.', or: 'or' },
   weekdaysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   equipmentLabels: { 'body weight': 'Bodyweight', dumbbell: 'Dumbbell', barbell: 'Barbell', bench: 'Bench', cable: 'Cable', band: 'Band', machine: 'Machine' },
 };
