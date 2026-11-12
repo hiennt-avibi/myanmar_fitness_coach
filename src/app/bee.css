@@ -1,4 +1,3 @@
-/* Bee mascot motion: small, polished, CSS-only; never distorts proportions (transform translate/rotate only). */
 :root{--bee-yellow:#f4b73f;--bee-brown:#5b3a1e;--bee-soft:#fff6dd}
 .mascot.still,.mascot.still *{animation:none!important}
 .mascot-celebrating,.mascot-cheering{animation:bee-jump .9s ease-out 2,mascot-idle 4s ease-in-out 1.8s infinite}
@@ -22,7 +21,7 @@
 @keyframes bee-pop{from{transform:translateY(12px);opacity:0}to{transform:none;opacity:1}}
 @media(min-width:761px){.bee-reaction{bottom:24px}}
 @media(prefers-reduced-motion:reduce){.bee-avatar.thinking,.bee-reaction{animation:none!important}}
-/* AI Coach chat (shared by Coach page and Exercise Detail panel) */
+
 .coach-chat{display:grid;gap:12px;min-width:0}
 .coach-chat .messages{display:grid;gap:10px;max-height:min(60vh,560px);overflow-y:auto;padding-right:4px}
 .coach-chat.compact .messages{max-height:340px}

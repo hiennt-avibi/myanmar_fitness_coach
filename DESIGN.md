@@ -1,6 +1,6 @@
 # Mingalar Fit visual system
 
-Current direction (2026-11-13): **MingalarFit** — warm cream ground, white cards with thin warm outlines, one brick-red accent, Plus Jakarta Sans. Source: the MingalarFit · Light/Dark pages of the design canvas (30 mobile screens each). This supersedes the white/orange FitnessUIUX direction. Migration is phased: phase 1 (tokens, fonts, shape) is done; shell, onboarding and per-screen layouts follow.
+Current direction (2026-11-13): **MingalarFit** — warm cream ground, white cards with thin warm outlines, one brick-red accent, Plus Jakarta Sans. Source: the MingalarFit · Light/Dark pages of the design canvas (30 mobile screens each). This supersedes the white/orange FitnessUIUX direction. All six migration phases are done (tokens and fonts, shell, sign-in and onboarding, main tabs, secondary screens, cleanup). The older stylesheets still load first for layout; `src/app/solaris.css` is the single place for MingalarFit look and new rules. Selectors whose classes no longer appear in `src` were pruned on 2026-11-13; prune again after removing UI so dead rules do not pile up.
 
 `src/app/solaris.css` loads last and owns the final tokens and refinements. New code uses the `--brand*`, `--bubble`, `--line-strong`, `--track` names. Legacy names stay mapped for existing components: `--lime` = primary CTA fill (brand), `--accent` = readable brand text, `--forest` = strong ink emphasis. Tailwind/shadcn tokens map to these variables.
 
