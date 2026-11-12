@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { CupSoda, Droplets, GlassWater, Milk, Undo2 } from 'lucide-react';
+import { Undo2 } from 'lucide-react';
 import { trainingApi } from '@/shared/client';
 import { useTrainingLanguage } from '@/shared/training-language';
 import { buzz } from '@/shared/wake-lock';
@@ -20,23 +20,29 @@ export function WaterView() {
   const pct = w ? Math.min(100, Math.round(w.totalMl / w.targetMl * 100)) : 0;
   const max = Math.max(1, ...(w?.week.map(d => Math.max(d.ml, w.targetMl)) ?? [1]));
   return <section className="water-view">
-    <div className="page-heading"><span className="overline"><Droplets size={14}/> {u.waterTab}</span><h1>{u.waterTitle}</h1></div>
+    <div className="page-heading"><h1>{u.mf.waterTitle}</h1></div>
     <div className="seg-switch tab-switch">{(['water', 'food'] as const).map(k => <button key={k} type="button" className={tab === k ? 'selected' : ''} aria-pressed={tab === k} onClick={() => setTab(k)}>{u.waterTabs[k]}</button>)}</div>
     {tab === 'water' && <>
       {!w ? <div className="sk sk-hero"/> : <>
-        <div className="water-ring" style={{ ['--p' as string]: `${pct}%` }} role="img" aria-label={`${w.totalMl} / ${w.targetMl} ml`}>
-          <div><strong>{(w.totalMl / 1000).toFixed(2)}</strong><small>/ {(w.targetMl / 1000).toFixed(1)} L</small><span>{pct}%</span></div></div>
-        <p className="muted center">{pct >= 100 ? u.waterDone : u.waterLeft.replace('{ml}', String(Math.max(0, w.targetMl - w.totalMl)))}</p>
-        <div className="water-buttons">
-          {([[150, CupSoda, u.cup], [250, GlassWater, u.glass], [500, Milk, u.bottle]] as const).map(([ml, Icon, label]) =>
-            <button key={ml} type="button" className="water-add" disabled={busy} onClick={() => void add(ml)}><Icon size={26}/><strong>+{ml} ml</strong><small>{label}</small></button>)}
-        </div>
-        {w.entries.length > 0 && <button type="button" className="text-button" disabled={busy} onClick={() => void undo()}><Undo2 size={15}/>{u.undo} ({w.entries[0].ml} ml)</button>}
-        <section className="panel"><h3>{u.last7}</h3>
-          <div className="water-week">{w.week.map(d => <div key={d.day} title={`${d.day}: ${d.ml} ml`}><span style={{ height: `${d.ml / max * 100}%` }} className={d.ml >= w.targetMl ? 'met' : ''}/><small>{d.day.slice(8)}</small></div>)}</div></section>
+        <section className="mf-card water-today" aria-labelledby="h-water-today">
+          <span id="h-water-today" className="card-label">{u.mf.today}</span>
+          <div className="big-amount"><strong>{(w.totalMl / 1000).toFixed(2)}</strong><span>{u.mf.ofTarget.replace('{target}', (w.targetMl / 1000).toFixed(1))}</span></div>
+          <div className="mf-bar big" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct} aria-label={`${w.totalMl} / ${w.targetMl} ml`}><i style={{ width: `${pct}%` }}/></div>
+          <p className="card-note">{pct >= 100 ? u.waterDone : u.waterLeft.replace('{ml}', String(Math.max(0, w.targetMl - w.totalMl)))}</p>
+        </section>
+        <section className="home-section" aria-labelledby="h-add-drink">
+          <h2 id="h-add-drink">{u.mf.addDrink}</h2>
+          <div className="water-buttons">
+            {([[150, u.cup], [250, u.glass], [500, u.bottle]] as const).map(([ml, label]) =>
+              <button key={ml} type="button" className="water-add" disabled={busy} onClick={() => void add(ml)}><strong>+{ml}</strong><small>ml · {label}</small></button>)}
+          </div>
+          {w.entries.length > 0 && <button type="button" className="text-button" disabled={busy} onClick={() => void undo()}><Undo2 size={15}/>{u.undo} ({w.entries[0].ml} ml)</button>}
+        </section>
+        <section className="mf-card"><div className="mf-head"><h3>{u.last7}</h3><span>{u.mf.goalLine}</span></div>
+          <div className="water-week" style={{ ['--goal' as string]: String(w.targetMl / max) }}>{w.week.map(d => <div key={d.day} title={`${d.day}: ${d.ml} ml`}><span style={{ height: `${d.ml / max * 100}%` }} className={d.ml >= w.targetMl ? 'met' : ''}/><small>{d.day.slice(8)}</small></div>)}</div></section>
         <details className="explain-box"><summary>{u.howTarget}</summary><p>{u.targetExplain.replace('{kg}', w.weightKg ? String(w.weightKg) : '—').replace('{ml}', String(w.targetMl))}{w.workedOut ? ` ${u.workoutExtra}` : ''}</p></details>
       </>}
-      <BeeTip context="nutrition"/>
+      <BeeTip context="nutrition" size={40}/>
     </>}
     {tab === 'food' && <><MealPhoto/><NutritionView/></>}
   </section>;

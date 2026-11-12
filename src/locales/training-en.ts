@@ -132,6 +132,7 @@ const en = {
     create: 'Create my plan', next: 'Next', making: 'Creating your plan…', makingHint: 'Choosing exercises that fit your goal and level.',
   },
   ux: {
+    mf: { today: 'Today', partsDone: '{n} of 3 done', notStarted: 'Not started', doneToday: 'Done today', ofGoal: '{pct}% of today’s goal', addWater: 'Add water', logMeal: 'Log a meal', thisWeek: 'This week', weekLine: 'Week {w} · {stage}', dayToday: 'DAY {n} · TODAY', aboutKcal: 'about {kcal} kcal', swapOne: 'Swap an exercise', otherWays: 'Other ways to train', otherPlans: 'Other plans', seeAllN: 'See all {n}', showFewer: 'Show fewer', exercisesTitle: 'Exercises', quickNote: 'Guided from start to finish. No equipment.', waterTitle: 'Water & food', ofTarget: 'of {target} L', addDrink: 'Add a drink', goalLine: 'Line = your goal', settings: 'Settings', account: 'Account', pickHabit: 'Tap a streak to see its calendar.' },
     nav: { home: 'My plan', discover: 'Exercises', water: 'Water & food', target: 'Goals', me: 'Me' },
     seeAll: 'See all', changePlan: 'Change', groupAll: 'All', groupNames: { chest: 'Chest', back: 'Back', legs: 'Legs', arms: 'Arms', core: 'Core', shoulders: 'Shoulders' },
     coachHi: 'Mingalaba, {name}!', coachToday: 'Today: {title}, {min} min. Ready when you are.', coachDoneToday: 'Today’s session is done. Great job! Drink water and rest well.', coachWeekDone: 'You finished this week. New sessions start next week.',

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { ArrowLeftRight, Camera, Check, ChevronDown, Clock, Droplets, Dumbbell, Flame, Home, ListPlus, MessageCircle, Play, Repeat, Timer, TrendingDown, TrendingUp, Undo2, Utensils, X } from 'lucide-react';
+import { ArrowLeftRight, Camera, Check, ChevronDown, ChevronRight, Clock, Droplets, Dumbbell, Flame, Home, ListPlus, MessageCircle, Play, Repeat, Timer, TrendingDown, TrendingUp, Undo2, Utensils, X } from 'lucide-react';
 import { useApp } from '@/shared/app-context';
 import { localExercise, trainingApi } from '@/shared/client';
 import { useLanguage } from '@/shared/language';
@@ -70,46 +70,20 @@ export function PlanView() {
   const fill = (x: string, v: Record<string, string | number> = {}) => Object.entries(v).reduce((r, [k, val]) => r.replaceAll(`{${k}}`, String(val)), x);
   const issueText = (i: BalanceIssue) => fill(tt.insights[i.code as keyof typeof tt.insights] ?? i.code, i.values ?? {});
   const warnings = [...(plan.balance?.done ?? []).map(issueText), ...(plan.balance?.plan ?? []).filter(i => !plan.balance?.done.some(d => d.code === i.code)).map(i => `${u.coachPlanWarn} ${issueText(i)}`)].slice(0, 2);
+  const m = u.mf;
+  const openFood = () => { try { sessionStorage.setItem('mingalar-tab', 'food'); } catch { /* optional */ } go('water'); };
+  const workoutPct = todayDone ? 100 : todayScore?.workout ?? null;
+  const parts: { key: string; label: string; pct: number | null; status: string; action: string | null; act: () => void }[] = [
+    { key: 'workout', label: u.partWorkout, pct: workoutPct, status: today ? `${todayDone ? m.doneToday : workoutPct ? fill(m.ofGoal, { pct: workoutPct }) : m.notStarted} · ${today.minutes} ${u.min}` : m.doneToday,
+      action: today && !todayDone ? (data.activeSession ? u.resume : u.start) : null, act: () => { if (today) void start(today); } },
+    { key: 'water', label: u.partWater, pct: todayScore?.water ?? null, status: fill(m.ofGoal, { pct: todayScore?.water ?? 0 }), action: m.addWater, act: () => go('water') },
+    { key: 'food', label: u.partFood, pct: todayScore?.food ?? null, status: fill(m.ofGoal, { pct: todayScore?.food ?? 0 }), action: m.logMeal, act: openFood },
+  ];
   return <section className="plan-view">
     <header className="plan-head">
       <div><span className="date-line">{dateLine(locale, t.weekdaysShort)}</span><h1>{u.hello} {who}</h1></div>
       <HeaderActions/>
     </header>
-
-    <section className="score-card" aria-label={u.todayScore}>
-      <div className="score-summaries"><div className="score-main"><div className="solaris-ring" style={{ background: `conic-gradient(var(--forest) ${(todayScore?.score ?? 0) * 3.6}deg, var(--line) 0deg)` }}><strong><CountUp to={todayScore?.score ?? 0}/><em>%</em></strong></div><small>{u.todayScore}</small></div>
-      <div className="score-main"><div className="solaris-ring" style={{ background: `conic-gradient(var(--lime) ${(weeklyAverage ?? 0) * 3.6}deg, var(--line) 0deg)` }}><strong>{weeklyAverage ?? '—'}{weeklyAverage !== null && <em>%</em>}</strong></div><small>{tt.quiz.details.weeklyAverage}</small></div></div>
-    </section>
-
-    <section className="home-section" id="my-plan" aria-labelledby="h-plan">
-      <div className="section-head"><div><h2 id="h-plan">{u.planSection}</h2><small>{u.planHint}</small></div><button type="button" className="see-all" onClick={() => setPrograms(true)}>{u.changePlan}</button></div>
-      {today ? <article className="today-hero" onClick={() => setOpen(today)}>
-        <div className="today-hero-media" style={today.thumb ? { backgroundImage: `url(${today.thumb})` } : undefined}>{!today.thumb && <Dumbbell className="hero-placeholder" size={52} aria-hidden="true"/>}<span className="today-badge">{u.today}</span></div>
-        <div className="today-hero-body">
-          <small>{u.day} {today.day}</small><h2>{dayTitle(today)}</h2>
-          {!today.items.length && <p>{tt.adaptive.noMatch}</p>}
-          <p className="day-meta"><span className="meta-chip"><Clock size={14}/>{today.minutes} {u.min}</span><span className="meta-chip"><Flame size={14}/>{today.kcal} kcal</span><span className="meta-chip">{today.items.length} {u.exercises}</span><span className="meta-chip">{location === 'home' ? u.followTimer : u.gymReps}</span></p>
-          <button type="button" className="button primary big-start" disabled={busy} onClick={e => { e.stopPropagation(); void start(today); }}><Play size={20}/>{data.activeSession ? u.resume : u.start}</button>
-        </div></article>
-        : <article className="today-hero done"><BeeMessage state="celebrating" size={72} text={u.weekDone}/></article>}
-
-      <section className="week-card">
-        <div className="program-row"><div><small>{u.program}: {u.programs[plan.program].title}</small><strong>{u.week} {plan.week} · {u.stages[plan.stage]}{plan.deload ? ` · ${u.deloadWeek}` : ''}</strong></div>
-          <div className="seg-switch place-switch">{(['home', 'gym'] as const).map(l => <button key={l} type="button" className={location === l ? 'selected' : ''} aria-pressed={location === l} onClick={() => switchLocation(l)}>{l === 'home' ? <Home size={15}/> : <Dumbbell size={15}/>}{tt[l]}</button>)}</div></div>
-        {plan.lastAdapt && <p className={`change-note ${plan.lastAdapt.change}`}>{plan.lastAdapt.change === 'up' ? <TrendingUp size={16}/> : plan.lastAdapt.change === 'down' ? <TrendingDown size={16}/> : <Check size={16}/>}
-          {u.lastSession.replace('{pct}', String(plan.lastAdapt.pct ?? 100))} {u.adaptReason[plan.lastAdapt.reason as keyof typeof u.adaptReason]} {u.adaptChange[plan.lastAdapt.change]}</p>}
-        {plan.tired && <p className="change-note down">{u.tiredToday}</p>}
-        {!plan.lastAdapt && plan.lastChange && <p className={`change-note ${plan.lastChange.change}`}>{plan.lastChange.change === 'up' ? <TrendingUp size={16}/> : plan.lastChange.change === 'down' ? <TrendingDown size={16}/> : <Check size={16}/>}
-          {u.changeNote[plan.lastChange.change].replace('{pct}', String(plan.lastChange.avg))}</p>}
-        <div className="week-days">{plan.days.map(d => <button key={d.day} type="button" className={`week-day ${d.day === plan.current ? 'current' : ''} ${d.done ? 'done' : ''}`} onClick={() => setOpen(d)}>
-          <span className="wd-dot" style={d.done ? { background: pctColor(d.pct), borderColor: 'transparent', color: '#fff' } : undefined}>{d.done ? ((d.pct ?? 100) >= 100 ? <Check size={16}/> : `${d.pct}`) : d.day}</span><small>{dayTitle(d)}</small></button>)}</div>
-      </section>
-
-      <AdaptiveControls key={plan.week} plan={plan} reload={() => load()}/>
-      <div className="section-head sub"><h3>{u.recommended}</h3></div>
-      <div className="program-rail">{(['personal', 'four_day', 'gym_beginner'] as const).map(p => <button key={p} type="button" className={`program-tile pt-${p} ${plan.program === p ? 'on' : ''}`} onClick={() => { if (plan.program !== p) void changeProgram(p); }}>
-        {plan.program === p && <em>{u.currentPlan}</em>}<strong>{u.programs[p].title}</strong><small>{u.programs[p].desc}</small></button>)}</div>
-    </section>
 
     <CoachBubble state={warnings.length ? 'concerned' : todayDone ? 'celebrating' : 'waving'} lines={[
       fill(u.coachHi, { name: who }),
@@ -117,25 +91,64 @@ export function PlanView() {
       warn={warnings.length > 0} action={!todayDone && today ? { label: data.activeSession ? u.resume : u.start, run: () => void start(today) } : null}
       ask={{ label: u.coachAsk, run: () => go('coach') }} closeLabel={u.coachClose} busy={busy}/>
 
-    <section className="home-section" aria-labelledby="h-training">
-      <div className="section-head"><div><h2 id="h-training">{u.training}</h2><small>{u.trainingHint}</small></div><button type="button" className="see-all" onClick={() => go('discover')}>{u.seeAll}</button></div>
-      <div className="train-grid">
-        <button type="button" className="train-card tc-home" onClick={() => goPlan('home')}><span><small>{u.trainCards.home.sub}</small><strong>{u.trainCards.home.title}</strong></span><Home className="tc-art" size={72} aria-hidden="true"/></button>
-        <button type="button" className="train-card tc-gym" onClick={() => goPlan('gym')}><span><small>{u.trainCards.gym.sub}</small><strong>{u.trainCards.gym.title}</strong></span><Dumbbell className="tc-art" size={72} aria-hidden="true"/></button>
-        <button type="button" className="train-card tc-quick" onClick={() => setQuick(true)}><span><small>{u.trainCards.quick.sub}</small><strong>{u.trainCards.quick.title}</strong></span><Timer className="tc-art" size={72} aria-hidden="true"/></button>
-        <button type="button" className="train-card tc-build" onClick={() => openTrain({ mode: 'free', name: u.myWorkout, rows: [] })}><span><small>{u.trainCards.build.sub}</small><strong>{u.trainCards.build.title}</strong></span><ListPlus className="tc-art" size={72} aria-hidden="true"/></button>
-      </div>
-    </section>
-
-    <section className="score-card" aria-label={u.todayScore}>
-      <div className="score-tiles">
-        {([['workout', Dumbbell, u.partWorkout, () => goPlan(location)], ['water', Droplets, u.partWater, () => go('water')], ['food', Utensils, u.partFood, () => go('water')]] as const).map(([k, Icon, label, act]) =>
-          <button key={k} type="button" className={`score-tile st-${k}`} onClick={act}><span className="st-head"><Icon size={23}/><small>{label}</small></span><div className="solaris-mini-ring" style={{ background: `conic-gradient(var(--series) ${(todayScore?.[k] ?? 0) * 3.6}deg, var(--series-soft) 0deg)` }}><strong>{todayScore?.[k] ?? 0}<em>%</em></strong></div></button>)}
-      </div>
+    <section className="mf-card today-card" aria-labelledby="h-today">
+      <div className="mf-head"><h2 id="h-today">{m.today}</h2><span>{fill(m.partsDone, { n: parts.filter(x => (x.pct ?? 0) >= 100).length })}</span></div>
+      {parts.map(x => <div key={x.key} className="today-row">
+        <div className="today-row-top"><span><strong>{x.label}</strong><small>{x.status}</small></span>{x.action && <button type="button" className="row-action" disabled={busy} onClick={x.act}>{x.action}</button>}</div>
+        <div className="mf-bar" aria-hidden="true"><i style={{ width: `${Math.min(100, x.pct ?? 0)}%` }}/></div></div>)}
       {scores && <ScoreHistory scores={scores} label={u.last7} locale={locale} weekdays={t.weekdaysShort}/>}
     </section>
 
-    <button type="button" className="meal-cta" onClick={() => { try { sessionStorage.setItem('mingalar-tab', 'food'); } catch { /* optional */ } go('water'); }}><Camera size={22}/><span><strong>{u.mealPhoto}</strong><small>{u.mealPhotoHint}</small></span></button>
+    <section className="home-section" aria-labelledby="h-week">
+      <div className="mf-head"><h2 id="h-week">{m.thisWeek}</h2><span>{fill(m.weekLine, { w: plan.week, stage: u.stages[plan.stage] })}{plan.deload ? ` · ${u.deloadWeek}` : ''}</span></div>
+      <div className="week-days">{plan.days.map(d => <button key={d.day} type="button" className={`week-day ${d.day === plan.current ? 'current' : ''} ${d.done ? 'done' : ''}`} onClick={() => setOpen(d)}>
+        <span className="wd-dot" style={d.done ? { background: pctColor(d.pct), borderColor: 'transparent', color: '#fff' } : undefined}>{d.done ? ((d.pct ?? 100) >= 100 ? <Check size={16}/> : `${d.pct}`) : d.day}</span><small>{dayTitle(d)}</small></button>)}</div>
+      {plan.lastAdapt && <p className={`change-note ${plan.lastAdapt.change}`}>{plan.lastAdapt.change === 'up' ? <TrendingUp size={16}/> : plan.lastAdapt.change === 'down' ? <TrendingDown size={16}/> : <Check size={16}/>}
+        {u.lastSession.replace('{pct}', String(plan.lastAdapt.pct ?? 100))} {u.adaptReason[plan.lastAdapt.reason as keyof typeof u.adaptReason]} {u.adaptChange[plan.lastAdapt.change]}</p>}
+      {plan.tired && <p className="change-note down">{u.tiredToday}</p>}
+      {!plan.lastAdapt && plan.lastChange && <p className={`change-note ${plan.lastChange.change}`}>{plan.lastChange.change === 'up' ? <TrendingUp size={16}/> : plan.lastChange.change === 'down' ? <TrendingDown size={16}/> : <Check size={16}/>}
+        {u.changeNote[plan.lastChange.change].replace('{pct}', String(plan.lastChange.avg))}</p>}
+    </section>
+    <AdaptiveControls key={plan.week} plan={plan} reload={() => load()}/>
+
+    {today ? <article className="mf-card today-workout">
+      <div className="tw-media" style={today.thumb ? { backgroundImage: `url(${today.thumb})` } : undefined} aria-hidden="true">{!today.thumb && <Dumbbell size={44}/>}</div>
+      <div className="tw-body">
+        <span className="eyebrow-text">{fill(m.dayToday, { n: today.day })}</span>
+        <h2>{dayTitle(today)}</h2>
+        <p className="tw-meta">{today.minutes} {u.min} · {fill(m.aboutKcal, { kcal: today.kcal })} · {today.items.length} {u.exercises} · {location === 'home' ? u.followTimer : u.gymReps}</p>
+        {!today.items.length && <p>{tt.adaptive.noMatch}</p>}
+        {today.items.length > 0 && <ol className="tw-moves">{today.items.map(i => { const e = ex(i.id); return <li key={i.id}>
+          <span className="ex-thumb" style={e?.thumbnailUrl ? { backgroundImage: `url(${e.thumbnailUrl})` } : undefined}/><span className="tw-name">{name(i.id)}</span>
+          <span className="tw-dose">{i.sets} × {i.target}{i.unit === 'reps' ? '' : ` ${u.sec}`}</span></li>; })}</ol>}
+        <button type="button" className="button primary big-start" disabled={busy} onClick={() => void start(today)}><Play size={18}/>{data.activeSession ? u.resume : u.start}</button>
+        <button type="button" className="text-button tw-swap" onClick={() => setOpen(today)}>{m.swapOne}</button>
+      </div></article>
+      : <article className="mf-card today-workout done"><BeeMessage state="celebrating" size={72} text={u.weekDone}/></article>}
+
+    <section className="home-section" id="my-plan" aria-labelledby="h-plan">
+      <div className="mf-head"><h2 id="h-plan">{u.program}</h2><button type="button" className="text-button" onClick={() => setPrograms(true)}>{u.changePlan}</button></div>
+      <p className="section-note">{u.programs[plan.program].title}. {u.planHint}</p>
+      <div className="seg-switch place-switch">{(['home', 'gym'] as const).map(l => <button key={l} type="button" className={location === l ? 'selected' : ''} aria-pressed={location === l} onClick={() => switchLocation(l)}>{tt[l]}</button>)}</div>
+      <div className="mf-list">{plan.days.map(d => <button key={d.day} type="button" className="mf-row" onClick={() => setOpen(d)}>
+        <span className={`day-badge ${d.day === plan.current ? 'current' : ''}`}>{d.done ? <Check size={16}/> : d.day}</span>
+        <span className="mf-row-text"><strong>{dayTitle(d)}</strong><small>{d.minutes} {u.min}{d.day === plan.current ? ` · ${m.today}` : ''}{d.done ? ` · ${d.pct ?? 100}%` : ''}</small></span>
+        <ChevronRight size={18} aria-hidden="true"/></button>)}</div>
+    </section>
+
+    <section className="home-section" aria-labelledby="h-training">
+      <h2 id="h-training">{m.otherWays}</h2>
+      <div className="mf-list">{([['home', () => goPlan('home')], ['gym', () => goPlan('gym')], ['quick', () => setQuick(true)], ['build', () => openTrain({ mode: 'free', name: u.myWorkout, rows: [] })]] as const).map(([k, act]) =>
+        <button key={k} type="button" className="mf-row" onClick={act}><span className="mf-row-text"><strong>{u.trainCards[k].title}</strong><small>{u.trainCards[k].sub}</small></span><ChevronRight size={18} aria-hidden="true"/></button>)}</div>
+    </section>
+
+    <section className="home-section" aria-labelledby="h-other-plans">
+      <h2 id="h-other-plans">{m.otherPlans}</h2>
+      <div className="program-rail">{(['personal', 'four_day', 'gym_beginner'] as const).map(p => <button key={p} type="button" className={`program-tile pt-${p} ${plan.program === p ? 'on' : ''}`} aria-pressed={plan.program === p} onClick={() => { if (plan.program !== p) void changeProgram(p); }}>
+        {plan.program === p && <em>{u.currentPlan}</em>}<strong>{u.programs[p].title}</strong><small>{u.programs[p].desc}</small></button>)}</div>
+    </section>
+
+    <button type="button" className="mf-row mf-card meal-row" onClick={openFood}><span className="row-icon"><Camera size={22}/></span><span className="mf-row-text"><strong>{u.mealPhoto}</strong><small>{u.mealPhotoHint}</small></span><ChevronRight size={18} aria-hidden="true"/></button>
     <RatingPrompt/>
 
     {plan.pastWeeks.length > 0 && <section className="past-weeks"><button type="button" className="text-button" onClick={() => setHistory(h => !h)}><ChevronDown size={16}/>{u.pastWeeks}</button>
@@ -200,7 +213,7 @@ function CoachBubble({ state, lines, warn, action, ask, closeLabel, busy }: { st
   }, [KEY, lines.length]);
   if (hidden) return null;
   return <section className={`coach-bubble ${warn ? 'warn' : ''}`} aria-live="polite">
-    <div className="cb-bee"><Mascot state={state} size={64} label=""/></div>
+    <div className="cb-bee"><Mascot state={state} size={40} label=""/></div>
     <div className="cb-chat">
       {lines.slice(0, shown).map((l, i) => <p key={i} className={`cb-msg ${i >= 2 ? 'alert' : ''}`}>{l}</p>)}
       {shown < lines.length && <p className="cb-msg typing" aria-hidden="true"><i/><i/><i/></p>}
