@@ -616,3 +616,12 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:non
 :root .section-heading .text-button{font-size:14px;font-weight:600;color:var(--brand-text);min-height:44px}
 :root .quick-log .quick-row{display:flex;gap:8px;align-items:stretch}:root .quick-log .quick-row input{flex:1;min-width:0}:root .quick-log .quick-row .button{flex-shrink:0}
 :lang(my) :is(.mf-row-text strong,.mf-row-text small,.today-row-top strong,.today-row-top small,.section-note,.tw-meta){line-height:1.7}
+/* Phone safe areas (design canvas phone frame, 2026-11-13): tab bar sits on the home-indicator
+   inset; pages keep 32px clear above it; full-width CTAs clear the indicator too. */
+@media(max-width:760px){
+  :root .mobile-nav{padding:6px 4px max(10px,env(safe-area-inset-bottom))}
+  :root .mobile-nav button{min-height:56px}
+  .app-shell:not(.onboarding-mode):not(.focus-mode) main{padding-bottom:calc(88px + 32px + env(safe-area-inset-bottom))}
+}
+:root .quiz-footer{padding:20px 0 max(20px,env(safe-area-inset-bottom))}
+:root .auth-page{padding-top:max(16px,env(safe-area-inset-top))}
