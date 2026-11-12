@@ -1,5 +1,8 @@
 'use client';
 import { ChartNoAxesCombined, ChevronRight, Inbox, MessageCircle, Settings, UserRound } from 'lucide-react';
+import { useLanguage } from '@/shared/language';
+import { languageName, useToggleLanguage } from '@/shared/language-switch';
+import { useThemeMode } from '@/shared/theme';
 import { useApp } from '@/shared/app-context';
 import { useTrainingLanguage } from '@/shared/training-language';
 import { bmiBand, bmiOf } from '@/shared/plan';
@@ -8,6 +11,7 @@ import { GameView } from '../gamification/game-view';
 // "Me": body numbers, shortcuts to progress / settings, then streak, XP, calendar and badges.
 export function MeView() {
   const { data, go } = useApp(); const tt = useTrainingLanguage(); const u = tt.ux;
+  const { t, locale } = useLanguage(); const toggleLanguage = useToggleLanguage(true); const theme = useThemeMode();
   const w = data.measurements[0]?.weightKg ?? null; const h = (data.profile as { heightCm?: number | null } | null)?.heightCm ?? null;
   const bmi = bmiOf(w, h), band = bmiBand(bmi);
   return <section className="me-view">
@@ -22,6 +26,10 @@ export function MeView() {
       <button type="button" onClick={() => go('coach')}><MessageCircle size={20}/><span><strong>{u.coach}</strong><small>{u.coachHint}</small></span><ChevronRight size={18}/></button>
       <button type="button" onClick={() => go('inbox')}><Inbox size={20}/><span><strong>{u.inbox}</strong><small>{u.inboxHint}</small></span><ChevronRight size={18}/></button>
       <button type="button" onClick={() => go('profile')}><Settings size={20}/><span><strong>{u.settings}</strong><small>{u.settingsHint}</small></span><ChevronRight size={18}/></button>
+    </div>
+    <div className="link-list settings-list">
+      <button type="button" onClick={toggleLanguage}><span><strong>{t.language}</strong></span><small lang={locale === 'en' ? 'en' : 'my'}>{languageName(locale)}</small><ChevronRight size={18} aria-hidden="true"/></button>
+      <button type="button" onClick={theme.cycle}><span><strong>{tt.themeLabel}</strong></span><small>{tt.themeModes[theme.mode]}</small><ChevronRight size={18} aria-hidden="true"/></button>
     </div>
     <GameView screen="home" embedded/>
   </section>;

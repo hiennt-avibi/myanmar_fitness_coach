@@ -14,6 +14,7 @@ import { AdaptiveControls } from './adaptive-controls';
 import type { assessTraining } from '@/shared/adaptation';
 import { RatingPrompt } from '../gamification/rating-prompt';
 import { BeeMessage, Mascot } from '../gamification/mascot';
+import { HeaderActions } from '../shell/header-actions';
 
 export type PlanDayView = PlanDay & { kcal: number; done: boolean; pct: number | null; doneOn: string | null; thumb: string | null };
 export type Plan = { adaptive?: { decision: ReturnType<typeof assessTraining> }; program: ProgramKey; location: 'home' | 'gym'; bmi: number | null; band: string | null; week: number; step: number; stage: StepStage; deload: boolean;
@@ -71,8 +72,8 @@ export function PlanView() {
   const warnings = [...(plan.balance?.done ?? []).map(issueText), ...(plan.balance?.plan ?? []).filter(i => !plan.balance?.done.some(d => d.code === i.code)).map(i => `${u.coachPlanWarn} ${issueText(i)}`)].slice(0, 2);
   return <section className="plan-view">
     <header className="plan-head">
-      <div><span className="date-line">{dateLine(locale, t.weekdaysShort)}</span><h1>{who}</h1></div>
-      <div className="plan-chips"><button type="button" className="chip-stat" onClick={() => go('achievements')} aria-label={u.streak}><Flame size={16}/>{data.stats.streak}</button></div>
+      <div><span className="date-line">{dateLine(locale, t.weekdaysShort)}</span><h1>{u.hello} {who}</h1></div>
+      <HeaderActions/>
     </header>
 
     <section className="score-card" aria-label={u.todayScore}>

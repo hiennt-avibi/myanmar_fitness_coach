@@ -19,6 +19,8 @@ Current direction (2026-11-13): **MingalarFit** — warm cream ground, white car
 | c-train / c-water | #08a54c / #08b6d5 | #20c976 / #16c3e1 | training / water data |
 | c-meal / c-photo | #E0662A / #6531c7 | #FF8A70 / #a174f0 | food / photo data |
 
+Shell (phase 2): five bottom tabs (My plan · Exercises · Water & food · Goals · Me), muted labels, the current tab in brand-text with a 3px brand bar above the icon. On mobile there is no app bar: My plan opens with date + greeting and the round 44px controls (appearance, inbox, profile avatar); other tabs start with their own heading. Language and appearance are also rows in Me; during sign-in and onboarding the top bar keeps only language and appearance. No floating coach button: the coach is reached from My plan and Me. Desktop keeps the sidebar (active item brand-soft) and a slim top bar; content max 1120px.
+
 Flat surfaces only: no shadows, glows or gradients. Cards 20px corners, lists and option cards 14px, buttons are pills (primary 54px tall, secondary 44–48px). Selected options: brand-soft fill with a 2px brand border. Lists are one bordered block with hairline separators and a › chevron. Light is the default; saved dark/system preferences remain available.
 
 Plus Jakarta Sans 400/600/700/800 (Latin + Vietnamese) for everything; Noto Sans Myanmar 400/700 for Burmese. All fonts self-hosted via @fontsource, OFL-1.1. Body 16px, secondary 14px, main heading 28px, section heading 19px, actions 15–17px. Burmese headings 26px with 1.6 line height; body 1.75–1.85 where needed. Keep syllables intact. Data numbers use tabular figures. Touch targets ≥44px. Bottom tabs: 22–25px icons, 12px labels, active tab in brand-text.

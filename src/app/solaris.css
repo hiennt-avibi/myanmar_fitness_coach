@@ -263,3 +263,39 @@ input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:non
 .health-options input{accent-color:var(--brand)}
 .toast{border-radius:var(--r-md)}
 
+
+/* MingalarFit app shell (phase 2). Mobile: no app bar; My plan carries the greeting and the round
+   header controls, other tabs start with their own heading. Desktop: sidebar + slim top bar. */
+.header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.header-actions :is(.icon-button,.theme-toggle),.auth-language .theme-toggle{width:44px;height:44px;min-width:44px;min-height:44px;padding:0;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink)}
+.header-actions svg,.auth-language .theme-toggle svg{width:20px;height:20px}
+.header-actions .avatar{width:44px;height:44px;border:0;border-radius:50%;background:var(--brand-soft);color:var(--brand-text);font-family:var(--font-head);font-weight:700;font-size:17px;display:grid;place-items:center;cursor:pointer}
+.language-switch,:root[data-theme=dark] .language-switch{min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--surface);color:var(--ink);font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.auth-language{display:flex;align-items:center;gap:8px}
+.plan-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.plan-head>div:first-child{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.plan-head .date-line{font-size:14px;font-weight:600;color:var(--muted)}
+.plan-head h1{margin:0;overflow-wrap:anywhere;color:var(--ink)}
+.settings-list button{min-height:52px}
+.settings-list button>span{flex:1}.settings-list button>small{color:var(--muted);font-size:14px;text-align:right}
+.settings-list button>svg:last-child,.link-list button>svg:last-child{color:var(--placeholder)}
+/* Bottom tabs: muted labels, brand colour + 3px top bar on the current tab. */
+.mobile-nav button{position:relative;color:var(--muted);font-weight:600;font-size:12px;background:transparent}
+.mobile-nav button::before{content:'';position:absolute;top:2px;left:50%;width:24px;height:3px;border-radius:2px;background:transparent;transform:translateX(-50%)}
+.mobile-nav .active::before{background:var(--brand)}
+.mobile-nav button svg{width:22px;height:22px}
+@media(max-width:760px){
+  .app-shell:not(.onboarding-mode) .topbar{display:none}
+  .app-shell:not(.onboarding-mode) main{padding-top:max(16px,env(safe-area-inset-top))}
+  .mobile-nav button{font-size:12px}
+}
+@media(min-width:761px){
+  .plan-head .header-actions{display:none}
+  .topbar,:root[data-theme=dark] .topbar{background:var(--paper);border-bottom:1px solid var(--line)}
+  .topbar-actions{gap:8px}
+  .sidebar,:root[data-theme=dark] .sidebar{background:var(--surface);border-right:1px solid var(--line)}
+  .sidebar button{border-radius:var(--r-md);color:var(--ink-2);font-weight:600;min-height:48px}
+  .sidebar button.active,:root[data-theme=dark] .sidebar button.active{background:var(--brand-soft);color:var(--brand-text);box-shadow:none;font-weight:700}
+  .sidebar button:hover:not(.active){background:var(--surface-2)}
+  main{max-width:1120px}
+}
