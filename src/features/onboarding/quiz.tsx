@@ -151,7 +151,7 @@ function NumberStepper({ value, min, max, unit, label, onChange, labels }: { val
   return <div className="quiz-number">
     <div className="qn-box">
       <button type="button" className="qn-btn" aria-label={`${labels.dec} (${unit})`} disabled={value <= min} {...press(-1)}>&minus;</button>
-      <label className="qn-value"><input type="number" inputMode="numeric" min={min} max={max} value={draft} aria-label={`${label} (${unit})`} onChange={e => setDraft(e.target.value)} onBlur={commit} onKeyDown={e => { if (e.key === 'Enter') commit(); }}/><span>{unit}</span></label>
+      <label className="qn-value"><input className="qn-number" type="number" inputMode="numeric" min={min} max={max} value={draft} aria-label={`${label} (${unit})`} onChange={e => setDraft(e.target.value)} onBlur={commit} onKeyDown={e => { if (e.key === 'Enter') commit(); }}/><span>{unit}</span></label>
       <button type="button" className="qn-btn" aria-label={`${labels.inc} (${unit})`} disabled={value >= max} {...press(1)}>+</button>
     </div>
     <p className="qn-hint">{labels.hint}</p>

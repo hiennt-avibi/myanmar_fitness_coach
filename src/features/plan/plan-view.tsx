@@ -91,7 +91,7 @@ export function PlanView() {
       warn={warnings.length > 0} action={!todayDone && today ? { label: data.activeSession ? u.resume : u.start, run: () => void start(today) } : null}
       ask={{ label: u.coachAsk, run: () => go('coach') }} closeLabel={u.coachClose} busy={busy}/>
 
-    <section className="mf-card today-card" aria-labelledby="h-today">
+    <section className="mf-card mf-today" aria-labelledby="h-today">
       <div className="mf-head"><h2 id="h-today">{m.today}</h2><span>{fill(m.partsDone, { n: parts.filter(x => (x.pct ?? 0) >= 100).length })}</span></div>
       {parts.map(x => <div key={x.key} className="today-row">
         <div className="today-row-top"><span><strong>{x.label}</strong><small>{x.status}</small></span>{x.action && <button type="button" className="row-action" disabled={busy} onClick={x.act}>{x.action}</button>}</div>
