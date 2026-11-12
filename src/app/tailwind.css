@@ -31,7 +31,7 @@
   --color-destructive: var(--st-low);
   --color-border: var(--line);
   --color-input: var(--line);
-  --color-ring: var(--c-water);
+  --color-ring: var(--brand);
   --color-brand: var(--forest);
   --color-lime: var(--lime);
   --color-sky: var(--sky);
@@ -42,10 +42,10 @@
   --color-meal: var(--c-meal);
   --color-train: var(--c-train);
   --color-photo: var(--c-photo);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 20px;
   --font-sans: var(--font-body);
   --font-heading: var(--font-head);
   --ease-out: cubic-bezier(.23, 1, .32, 1);

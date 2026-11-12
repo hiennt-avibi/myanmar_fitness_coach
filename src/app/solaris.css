@@ -1,34 +1,42 @@
-/* FitnessUIUX orange direction. Original implementation; no template code/assets.
-   Last in the cascade so the existing product screens share one theme. */
+/* MingalarFit direction (2026-11-13): warm cream ground, white cards with thin warm outlines,
+   one brick-red accent. Original implementation; no template code/assets.
+   Last in the cascade so the existing product screens share one theme. See DESIGN.md. */
 :root{
-  --font-head:SUSE,'Noto Sans Myanmar',sans-serif;--font-body:'Open Sans','Noto Sans Myanmar',sans-serif;
-  --paper:#fff;--surface:#fff;--surface-2:#f7f8fa;--ink:#292d32;--muted:#718098;--line:#e0e1e5;--disabled:#eceef1;
-  --forest:#5261a1;--forest-2:#6373b3;--forest-hi:#7482bf;--forest-deep:#354486;
-  /* Compatibility names used throughout the product, now mapped to orange. */
-  --lime:#fc7a1e;--lime-2:#e46911;--on-lime:#fff;
-  --green:#b84900;--accent:#b84900;--accent-2:#5261a1;--accent-soft:#fff1e7;
+  --font-head:'Plus Jakarta Sans','Noto Sans Myanmar',ui-sans-serif,system-ui,sans-serif;
+  --font-body:'Plus Jakarta Sans','Noto Sans Myanmar',ui-sans-serif,system-ui,sans-serif;
+  /* MingalarFit names (new code uses these). */
+  --brand:#C93A20;--brand-hover:#B8341C;--on-brand:#fff;--brand-text:#B8341C;--brand-soft:#FFE9DF;
+  --bubble:#FBF1EB;--line-strong:#E8D6CC;--track:#F6E7DF;--placeholder:#7A6E68;--danger:#B3261E;
+  --paper:#FFFAF6;--surface:#fff;--surface-2:#FBF1EB;--ink:#26211E;--ink-2:#4A403B;--muted:#6E625C;--line:#F1DFD6;--disabled:#F6E7DF;
+  /* Legacy names kept for existing components: --forest = strong ink emphasis, --lime = primary CTA fill. */
+  --forest:#26211E;--forest-2:#4A403B;--forest-hi:#6E625C;--forest-deep:#26211E;
+  --lime:var(--brand);--lime-2:var(--brand-hover);--on-lime:var(--on-brand);
+  --green:var(--brand-text);--accent:var(--brand-text);--accent-2:#4A403B;--accent-soft:var(--brand-soft);
   --mint:#e3f3e9;--mint-ink:#147b4b;--sky:#def3f7;--sky-ink:#087a92;
-  --coral-soft:#fff0e7;--coral-ink:#ad430b;--lavender:#eee7fb;--lavender-ink:#6336bd;
-  --c-train:#08a54c;--c-water:#08b6d5;--c-meal:#fc7a1e;--c-photo:#6531c7;
+  --coral-soft:#FFE9DF;--coral-ink:#B8341C;--lavender:#eee7fb;--lavender-ink:#6336bd;
+  --c-train:#08a54c;--c-water:#08b6d5;--c-meal:#E0662A;--c-photo:#6531c7;
   --c-water-soft:var(--sky);--c-meal-soft:var(--coral-soft);--c-photo-soft:var(--lavender);
-  --card-bg:var(--surface);--hl:0 0 transparent;--sh-card:0 0 transparent;--sh-1:0 2px 8px #292d3208;
-  --sh-stage:0 8px 24px #5261a112;--sh-lime:0 0 transparent;
-  --r-sm:10px;--r-md:16px;--r-lg:24px;--r-xl:28px;--r-stage:28px;
+  --card-bg:var(--surface);--hl:0 0 transparent;--sh-card:0 0 transparent;--sh-1:0 0 transparent;
+  --sh-stage:0 0 transparent;--sh-lime:0 0 transparent;
+  --r-sm:10px;--r-md:14px;--r-lg:20px;--r-xl:20px;--r-stage:20px;--r-pill:999px;
 }
 :root[data-theme=dark]{
-  --paper:#080808;--surface:#141416;--surface-2:#202024;--ink:#f5f5f7;--muted:#a4aabc;--line:#303035;--disabled:#303035;
-  --forest:#5261a1;--forest-2:#354486;--forest-hi:#6373b3;--forest-deep:#15152a;
-  --lime:#fc7a1e;--lime-2:#ff9142;--on-lime:#fff;--green:#ffad71;--accent:#ffad71;--accent-2:#a5b4f3;--accent-soft:#321b0e;
+  --brand:#C93A20;--brand-hover:#B8341C;--on-brand:#fff;--brand-text:#FF8A70;--brand-soft:#3A2620;
+  --bubble:#332B28;--line-strong:#4A403B;--track:#3D3430;--placeholder:#A39690;--danger:#FF8A80;
+  --paper:#1E1A18;--surface:#2A2421;--surface-2:#332B28;--ink:#fff;--ink-2:#E3D9D4;--muted:#A39690;--line:#3D3430;--disabled:#3D3430;
+  --forest:#fff;--forest-2:#E3D9D4;--forest-hi:#A39690;--forest-deep:#1E1A18;
+  --lime:var(--brand);--lime-2:var(--brand-hover);--on-lime:var(--on-brand);
+  --green:var(--brand-text);--accent:var(--brand-text);--accent-2:#E3D9D4;--accent-soft:var(--brand-soft);
   --mint:#082719;--mint-ink:#83e1b1;--sky:#03242c;--sky-ink:#6adcf0;
-  --coral-soft:#321708;--coral-ink:#ffb480;--lavender:#1c1034;--lavender-ink:#c0a5fa;
-  --c-train:#20c976;--c-water:#16c3e1;--c-meal:#ff8c38;--c-photo:#a174f0;
-  --card-bg:var(--surface);--hl:0 0 transparent;--sh-card:0 0 transparent;--sh-lime:0 0 transparent;
+  --coral-soft:#3A2620;--coral-ink:#FF8A70;--lavender:#1c1034;--lavender-ink:#c0a5fa;
+  --c-train:#20c976;--c-water:#16c3e1;--c-meal:#FF8A70;--c-photo:#a174f0;
+  --card-bg:var(--surface);--hl:0 0 transparent;--sh-card:0 0 transparent;--sh-1:0 0 transparent;--sh-stage:0 0 transparent;--sh-lime:0 0 transparent;
 }
 body{font-size:16px;line-height:1.55}
 h1,.page-heading h1,.plan-head h1{font-size:28px;font-weight:700;letter-spacing:-.025em;color:var(--forest)}
 h2,.section-title,.section-head h2{font-size:20px;font-weight:700;letter-spacing:-.015em}
 h3{font-size:18px;font-weight:700}
-:root[data-theme=dark] :is(h1,.page-heading h1,.plan-head h1){color:#a5b4f3}
+:root[data-theme=dark] :is(h1,.page-heading h1,.plan-head h1){color:var(--ink)}
 :lang(my) :is(h1,.page-heading h1,.plan-head h1){font-size:26px;line-height:1.65}
 :lang(my) :is(h2,.section-title,.section-head h2){font-size:20px;line-height:1.65}
 .date-line,.overline,.section-head small{font-size:14px}
@@ -69,42 +77,44 @@ h3{font-size:18px;font-weight:700}
 .tc-home{background:var(--sky)}.tc-gym{background:var(--mint)}.tc-quick{background:var(--coral-soft)}.tc-build{background:var(--lavender)}
 .train-card .tc-art,.tc-gym .tc-art{width:38px;height:38px;top:12px;right:12px;padding:8px;color:var(--sky-ink);background:var(--surface);border:0;box-shadow:none;backdrop-filter:none}
 .tc-gym .tc-art{color:var(--mint-ink)}.tc-quick .tc-art{color:var(--coral-ink)}.tc-build .tc-art{color:var(--lavender-ink)}
-.today-hero{min-height:0;background:linear-gradient(115deg,#ce6a85,var(--lime));border:0;box-shadow:none;display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:14px;padding:18px;align-items:center}
-.today-hero-media{position:relative;inset:auto;grid-column:2;grid-row:1;width:104px;height:140px;border-radius:22px;background-color:#f5e4d8}
+.today-hero{min-height:0;background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:none;display:grid;grid-template-columns:minmax(0,1fr) 104px;gap:14px;padding:18px;align-items:center}
+.today-hero-media{position:relative;inset:auto;grid-column:2;grid-row:1;width:104px;height:140px;border-radius:14px;background-color:var(--bubble)}
 .today-hero-media::after{display:none}.today-badge{top:8px;left:8px;padding:4px 8px;font-size:12px;background:var(--surface);color:var(--accent)}
 .today-hero-body{grid-column:1;grid-row:1;padding:0;min-width:0}.today-hero-body h2{font-size:24px;max-width:none;line-height:1.25;letter-spacing:-.02em}
 :lang(my) .today-hero-body h2{font-size:22px;line-height:1.65}
-.today-hero-body small{font-size:14px;color:#fff}.meta-chip{padding:0;font-size:13px;background:transparent;border:0;color:#fff}
-.today-hero .big-start{background:#fff;color:#a13d00;min-height:44px;font-size:16px;padding:10px 18px;margin-top:8px;align-self:flex-start}
-:root[data-theme=dark] .today-hero .big-start{background:#fff;color:#a13d00}
+.today-hero-body small{font-size:14px;color:var(--muted)}.today-hero-body h2{color:var(--ink)}.meta-chip{padding:0;font-size:14px;background:transparent;border:0;color:var(--muted)}
+.today-hero .big-start{background:var(--brand);color:var(--on-brand);border-radius:var(--r-pill);min-height:44px;font-size:16px;padding:10px 18px;margin-top:8px;align-self:flex-start}
+:root[data-theme=dark] .today-hero .big-start{background:var(--brand);color:var(--on-brand)}
+:root[data-theme=dark] .today-hero :is(small,p,em,.meta-chip){color:var(--muted)}
+.today-hero-media::after,.today-hero .big-start::after{display:none}
 .today-hero.done{display:block;background:var(--surface)}
-.feature-banner,.auth-story{background:linear-gradient(120deg,#ce6a85,#fc7a1e);box-shadow:none;border:0}
+.feature-banner,.auth-story{background:var(--surface);color:var(--ink);box-shadow:none;border:1px solid var(--line)}
 .feature-banner strong{font-size:22px}.meal-cta{background:var(--sky)}
 .week-day.current .wd-dot,.week-day.done .wd-dot{background:var(--lime);color:#fff}
 .seg-switch button.selected{background:var(--accent-soft);color:var(--accent)}
 .quiz-option.on{border-color:var(--lime);box-shadow:inset 0 0 0 1px var(--lime)}
 .qo-icon{color:var(--accent);background:var(--accent-soft);border:0}.quiz-option.on .qo-icon{background:var(--lime);color:#fff;box-shadow:none}
 .quiz-progress i{background:var(--lime)}.quiz-days button.on{background:var(--lime);border-color:var(--lime);color:#fff}
-.sidebar{background:linear-gradient(180deg,#fc9146,#fc7a1e);border-right:0;color:#fff}
+.sidebar{background:var(--surface);border-right:1px solid var(--line);color:var(--ink)}
 .sidebar button,.sidebar .sidebar-label,.sidebar small,.sidebar .brand-lockup{color:#fff}.sidebar button.active{background:#ffffff24;color:#fff;box-shadow:none}
 .sidebar button:hover{background:#ffffff18}
 .program-tile.selected,.program-tile.current{background:var(--coral-soft);color:var(--ink);border-color:var(--lime);box-shadow:none}
 .program-tile.selected strong,.program-tile.current strong{color:var(--ink)}
 .program-tile.selected small,.program-tile.current small{color:var(--muted)}
-.coach-fab{background:var(--lime);color:#fff;box-shadow:0 4px 12px #fc7a1e26;border:0}
+.coach-fab{background:var(--lime);color:#fff;box-shadow:none;border:0}
 .topbar .avatar,.me-avatar{background:var(--accent-soft);color:var(--accent);box-shadow:none}
-.mobile-nav,:root[data-theme=dark] .mobile-nav{background:var(--surface);backdrop-filter:none;box-shadow:0 -2px 12px #292d3206}
+.mobile-nav,:root[data-theme=dark] .mobile-nav{background:var(--surface);backdrop-filter:none;box-shadow:none;border-top:1px solid var(--line)}
 .mobile-nav .active,:root[data-theme=dark] .mobile-nav .active{background:transparent;color:var(--accent);box-shadow:none;font-weight:600;animation:none}
 .mobile-nav button{border-radius:12px}.mobile-nav .active svg{animation:none}
 @media(min-width:1100px){.score-card{grid-template-columns:220px 1fr}.score-tiles{gap:16px}.score-tile{padding:18px}.st-head{flex-direction:row;align-items:center}.solaris-mini-ring{width:90px;height:90px}.score-tile .solaris-mini-ring strong{font-size:26px}.train-card{min-height:160px}.today-hero{grid-template-columns:1fr 180px}.today-hero-media{width:180px;height:180px}.today-hero-body h2{font-size:28px}}
 @media(max-width:360px){.score-card{padding:14px}.score-tiles{gap:6px}.score-tile{padding:10px 8px}.st-head small{font-size:12px}.train-card strong{font-size:18px}.today-hero{grid-template-columns:minmax(0,1fr) 76px;padding:14px;gap:10px}.today-hero-media{width:76px;height:120px}.today-hero-body h2,:lang(my) .today-hero-body h2{font-size:20px}}
 
 /* Stakeholder refinement: crisp white surfaces, larger text/icons, restrained colour. */
-body{font-size:17px;line-height:1.6}
-h1,.page-heading h1,.plan-head h1{font-size:32px}
-h2,.section-title,.section-head h2{font-size:23px}
-.muted,small,.small,.date-line,.overline,.section-head small{font-size:15px}
-.button,[data-slot=button],.button.primary,.quiz-next{font-size:18px;min-height:48px}
+body{font-size:16px;line-height:1.55}
+h1,.page-heading h1,.plan-head h1{font-size:28px;line-height:1.15;letter-spacing:-.02em}
+h2,.section-title,.section-head h2{font-size:19px;letter-spacing:0}
+.muted,small,.small,.date-line,.overline,.section-head small{font-size:14px}
+.button,[data-slot=button],.button.primary,.quiz-next{font-size:16px;min-height:48px}
 .button.primary,.primary,.button.lime,.lime,.big-start{font-weight:700}
 .icon-button{min-width:44px;min-height:44px}.icon-button svg{width:25px;height:25px}
 .topbar .icon-button{padding:8px}.topbar .avatar{width:40px;height:40px;font-size:18px}
@@ -132,7 +142,7 @@ h2,.section-title,.section-head h2{font-size:23px}
 .meal-cta,.quick-card,.media-card,.water-add,.feature-banner{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:none}
 .feature-banner strong{color:var(--ink)}.feature-banner small,.feature-banner em{color:var(--muted)}
 .auth-story{background:var(--surface);color:var(--ink);border:1px solid var(--line)}.auth-story h1{color:var(--ink)}.auth-story p{color:var(--muted)}
-.today-hero{background:linear-gradient(110deg,#ce6a85,#fc7a1e)}
+.today-hero{background:var(--surface)}
 .quiz{max-width:620px;gap:18px}.quiz-title{font-size:32px}.quiz-hint{font-size:17px;color:var(--muted)}
 .quiz-option.tile{padding:18px;min-height:150px;gap:16px;border-radius:22px;background:var(--surface)}
 .quiz-option strong,.quiz-option.tile strong{font-size:20px;line-height:1.45}.quiz-option small,.quiz-option.tile small{font-size:15px;line-height:1.65}
@@ -200,8 +210,8 @@ input:focus,select:focus,textarea:focus{border-color:var(--lime);box-shadow:0 0 
 
 /* Series semantics: activity green, hydration cyan, meals orange, strength indigo.
    Charts use the same tokens as metric cards; no decorative fabricated series. */
-:root { --chart-ink:#5261a1; --chart-area:#eef0fa; }
-:root[data-theme=dark] { --chart-ink:#a5b4f3; --chart-area:#20263d; }
+:root { --chart-ink:#B8341C; --chart-area:#FFE9DF; }
+:root[data-theme=dark] { --chart-ink:#FF8A70; --chart-area:#3A2620; }
 .adaptive-card{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}
 .adaptive-card p{font-size:15px;margin:0 0 14px}
 .adaptive-actions{display:flex;flex-wrap:wrap;gap:8px}.adaptive-actions .button{flex:1;min-height:48px;font-size:15px;padding:10px 12px;white-space:normal}
@@ -226,3 +236,30 @@ input:focus,select:focus,textarea:focus{border-color:var(--lime);box-shadow:0 0 
 .train-card,.train-card:hover{background:var(--surface);border:1px solid var(--line)}
 .tc-home .tc-art{background:var(--sky)}.tc-gym .tc-art{background:var(--mint)}.tc-quick .tc-art{background:var(--coral-soft)}.tc-build .tc-art{background:var(--lavender)}
 @media(max-width:360px){.workout-audio .adaptive-actions .button{flex-basis:40%;font-size:14px}.calendar-month{gap:3px}.calendar-month button{border-radius:8px}}
+
+/* MingalarFit shape layer (phase 1): flat surfaces, thin warm outlines, pill CTAs.
+   Screen-level layouts move to the new design in later phases. */
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body)}
+:lang(my) :is(h1,.page-heading h1,.plan-head h1){font-size:26px;line-height:1.6}
+:lang(my) :is(h2,.section-title,.section-head h2){font-size:19px;line-height:1.6}
+a{color:var(--brand-text)}
+::placeholder{color:var(--placeholder);opacity:1}
+.panel,.week-card,.score-main,.score-tile,.solaris-history,.program-tile,.train-card,.meal-cta,.quick-card,.media-card,.link-list,.quiz-review,.today-hero,.focus-choice,.shape-option,.current-shape,.quiz-option{box-shadow:none}
+.panel,.week-card,.score-main,.solaris-history,.today-hero,.train-card,.feature-banner,.media-card{border-radius:var(--r-lg)}
+.score-tile,.program-tile,.quick-card,.link-list,.quiz-review,.focus-choice,.shape-option,.current-shape,.quiz-option,.quiz-option.tile,.meal-cta,.water-add{border-radius:var(--r-md)}
+.button,[data-slot=button],.quiz-next,.big-start,.coach-fab{border-radius:var(--r-pill)}
+.button.primary,.primary,.button.lime,.lime,.big-start,.quiz-next,:root[data-theme=dark] :is(.button.primary,.button.lime,.big-start){background:var(--brand);color:var(--on-brand);font-weight:600;box-shadow:none}
+:is(.button.primary,.button.lime,.big-start,.quiz-next):hover{background:var(--brand-hover)}
+.quiz-next,.big-start{min-height:54px;font-size:17px}
+.button.ghost,.button.secondary{background:var(--surface);color:var(--ink);border:1px solid var(--line-strong)}
+.quiz-option.on,.focus-choice.on,.shape-option.on,.current-shape.on,.program-tile.on,.program-tile.selected,.program-tile.current{background:var(--brand-soft);border:2px solid var(--brand);box-shadow:none}
+.quiz-progress{background:var(--track)}.quiz-progress i{background:var(--brand)}
+.coach-bubble,.cb-msg{background:var(--bubble)}
+.topbar .avatar,.me-avatar{background:var(--brand-soft);color:var(--brand-text)}
+.topbar .icon-button,.topbar .theme-toggle{border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink)}
+.mobile-nav .active,:root[data-theme=dark] .mobile-nav .active{color:var(--brand-text);font-weight:700}
+input,select,textarea{border-color:var(--line-strong)}
+input:focus,select:focus,textarea:focus{border-color:var(--brand);box-shadow:none;outline:2px solid var(--brand);outline-offset:1px}
+.health-options input{accent-color:var(--brand)}
+.toast{border-radius:var(--r-md)}
+

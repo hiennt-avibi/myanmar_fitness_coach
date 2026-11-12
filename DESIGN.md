@@ -1,24 +1,27 @@
 # Mingalar Fit visual system
 
-Current direction (2026-11-12): **white, clear and readable**, adapted from the user's FitnessUIUX screenshots with a later explicit request for less background colour and larger type/icons. This supersedes Stone & Lime.
+Current direction (2026-11-13): **MingalarFit** — warm cream ground, white cards with thin warm outlines, one brick-red accent, Plus Jakarta Sans. Source: the MingalarFit · Light/Dark pages of the design canvas (30 mobile screens each). This supersedes the white/orange FitnessUIUX direction. Migration is phased: phase 1 (tokens, fonts, shape) is done; shell, onboarding and per-screen layouts follow.
 
-`src/app/solaris.css` loads after `polish.css` and generated `dark.css` and owns the final tokens and visual refinements. Legacy token names remain for component compatibility: `--lime` now means the orange CTA; `--forest` means indigo secondary emphasis. Tailwind/shadcn tokens map to these variables.
+`src/app/solaris.css` loads last and owns the final tokens and refinements. New code uses the `--brand*`, `--bubble`, `--line-strong`, `--track` names. Legacy names stay mapped for existing components: `--lime` = primary CTA fill (brand), `--accent` = readable brand text, `--forest` = strong ink emphasis. Tailwind/shadcn tokens map to these variables.
 
 | Token | Light | Dark | Purpose |
 |---|---|---|---|
-| paper / surface | #ffffff | #080808 / #141416 | page / cards |
-| ink | #292d32 | #f5f5f7 | primary text |
-| muted | #718098 | #a4aabc | secondary text |
-| line | #e0e1e5 | #303035 | thin outlines |
-| lime | #fc7a1e | #fc7a1e | selected outlines and primary CTA |
-| accent | #b84900 | #ffad71 | readable text links |
-| forest | #5261a1 | #5261a1 | secondary brand emphasis |
+| paper / surface | #FFFAF6 / #FFFFFF | #1E1A18 / #2A2421 | page / cards |
+| surface-2 / bubble | #FBF1EB | #332B28 | soft fills, coach bubble |
+| ink / ink-2 | #26211E / #4A403B | #FFFFFF / #E3D9D4 | primary / strong secondary text |
+| muted | #6E625C | #A39690 | secondary text (≥5:1 on paper and surface) |
+| line / line-strong | #F1DFD6 / #E8D6CC | #3D3430 / #4A403B | outlines / input and secondary-button borders |
+| track | #F6E7DF | #3D3430 | progress tracks |
+| brand (lime) | #C93A20, hover #B8341C | same | primary CTA fill, white text 5.1:1 |
+| brand-text (accent) | #B8341C | #FF8A70 | links and selected text |
+| brand-soft | #FFE9DF | #3A2620 | selected option fill, avatar |
+| danger | #B3261E | #FF8A80 | destructive text |
 | c-train / c-water | #08a54c / #08b6d5 | #20c976 / #16c3e1 | training / water data |
-| c-meal / c-photo | #fc7a1e / #6531c7 | #ff8c38 / #a174f0 | food / photo data |
+| c-meal / c-photo | #E0662A / #6531c7 | #FF8A70 / #a174f0 | food / photo data |
 
-Use white cards with a 1px border and 22–28px corners. Keep background colour out of training cards, profile panels, navigation and selections. Reserve one compact pink→orange gradient for the current workout. No decorative glass, glows or dark green panels. Light is the default; saved dark/system preferences remain available.
+Flat surfaces only: no shadows, glows or gradients. Cards 20px corners, lists and option cards 14px, buttons are pills (primary 54px tall, secondary 44–48px). Selected options: brand-soft fill with a 2px brand border. Lists are one bordered block with hairline separators and a › chevron. Light is the default; saved dark/system preferences remain available.
 
-SUSE 600/700 headings; Open Sans 400/600 body; Noto Sans Myanmar 400/700 for Burmese. All fonts are self-hosted, OFL-1.1. Body 17px, secondary 15px, main heading 32px, section heading 23px, actions 18px. Burmese headings 28px with 1.7 line height; body 1.75–1.85 where needed. Keep syllables intact. Data numbers use tabular figures. Icons generally 24–29px with touch targets ≥44px. Tab icons 25px, labels 12–13px.
+Plus Jakarta Sans 400/600/700/800 (Latin + Vietnamese) for everything; Noto Sans Myanmar 400/700 for Burmese. All fonts self-hosted via @fontsource, OFL-1.1. Body 16px, secondary 14px, main heading 28px, section heading 19px, actions 15–17px. Burmese headings 26px with 1.6 line height; body 1.75–1.85 where needed. Keep syllables intact. Data numbers use tabular figures. Touch targets ≥44px. Bottom tabs: 22–25px icons, 12px labels, active tab in brand-text.
 
 Home: greeting → daily/7-day-average ring cards → current plan/week → coach → other ways to train → activity breakdown/history → meal photo. Put the workout action above optional statistics. All charts use real data. Missing history stays missing; weekly averages include recorded days only. Rest remains valid training credit under the existing product rules.
 
